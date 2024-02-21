@@ -15,5 +15,5 @@ interface item {
   level: number;
 }
 export const API_saveTags = (payload: Array<item>) => {
-  return Promise.resolve();
+  return Promise.resolve(payload);
 };
