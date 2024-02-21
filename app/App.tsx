@@ -15,11 +15,11 @@ const App = () => {
 
   return (
     <ScrollView contentContainerStyle={AppStyles.container}>
-      {categories.map(({name, id}, index) => (
+      {categories.map((category, index) => (
         <Tab
           isActive={activeTabIndex === index}
-          name={name}
-          key={id}
+          category={category}
+          key={category.id}
           setActive={() => setActiveTabIndex(index)}
         />
       ))}

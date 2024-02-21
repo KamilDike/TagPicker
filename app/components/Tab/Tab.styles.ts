@@ -7,9 +7,14 @@ export const TabStyles = StyleSheet.create({
     width: '100%',
     height: 200,
     marginBottom: Values.defaultMargin,
+    flexDirection: 'row',
+    gap: 10,
+    padding: Values.defaultPadding,
+    flexWrap: 'wrap',
   },
   inActive: {
     justifyContent: 'center',
     alignItems: 'center',
+    flexWrap: 'nowrap',
   },
 });
