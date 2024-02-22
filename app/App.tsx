@@ -4,6 +4,9 @@ import {Category} from './interfaces/Category.ts';
 import Tab from './components/Tab/Tab.tsx';
 import {ScrollView} from 'react-native';
 import {AppStyles} from './App.styles.ts';
+import Box from './components/Box/Box.tsx';
+import {TagsProvider} from './context/TagsContext.tsx';
+import LevelPicker from './components/LevelPicker/LevelPicker.tsx';
 
 const App = () => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -14,16 +17,21 @@ const App = () => {
   }, []);
 
   return (
-    <ScrollView contentContainerStyle={AppStyles.container}>
-      {categories.map((category, index) => (
-        <Tab
-          isActive={activeTabIndex === index}
-          category={category}
-          key={category.id}
-          setActive={() => setActiveTabIndex(index)}
-        />
-      ))}
-    </ScrollView>
+    <TagsProvider>
+      <LevelPicker>
+        <ScrollView contentContainerStyle={AppStyles.container}>
+          <Box />
+          {categories.map((category, index) => (
+            <Tab
+              isActive={activeTabIndex === index}
+              category={category}
+              key={category.id}
+              setActive={() => setActiveTabIndex(index)}
+            />
+          ))}
+        </ScrollView>
+      </LevelPicker>
+    </TagsProvider>
   );
 };
 

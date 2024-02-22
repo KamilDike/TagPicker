@@ -9,4 +9,7 @@ export const PillStyles = StyleSheet.create({
     backgroundColor: Colors.flashWhite,
     height: 50,
   },
+  active: {
+    backgroundColor: Colors.ghostWhite,
+  },
 });
