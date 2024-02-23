@@ -9,6 +9,8 @@ import Save from './components/Save/Save.tsx';
 import Categories from './components/Categories/Categories.tsx';
 
 const App = () => {
+  //Modal components could be grouped within single HOC
+
   return (
     <TagsProvider>
       <LevelPicker>

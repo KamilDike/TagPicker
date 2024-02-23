@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {Colors, Values} from '../../styles/styles.ts';
+import {Colors} from '../../styles/styles.ts';
 
 export const ConfirmationOverlayStyles = StyleSheet.create({
   container: {

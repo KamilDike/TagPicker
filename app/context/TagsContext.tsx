@@ -27,6 +27,8 @@ interface TagsProviderProps {
   children: React.ReactNode;
 }
 
+//Some actions could be further simplified and actually this context could be split into tags and categories
+//My go-to state management solution is Redux Toolkit
 export const TagsProvider = ({children}: TagsProviderProps) => {
   const [tags, setTags] = useState<Record<string, Array<TagWithLevel>>>({});
   const [levelTagAddition, setLevelTagAddition] = useState<Tag>();
