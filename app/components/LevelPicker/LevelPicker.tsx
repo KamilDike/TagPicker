@@ -9,7 +9,12 @@ interface LevelPickerProps {
 }
 
 const LevelPicker = ({children}: LevelPickerProps) => {
-  const {levelTagAddition, clearLevelTagAddition, addLevelTag} = useTags();
+  const {
+    levelTagAddition,
+    clearLevelTagAddition,
+    addLevelTag,
+    activeCategoryId,
+  } = useTags();
   const [level, setLevel] = useState<number>(1);
 
   const handleQuit = () => {
@@ -18,8 +23,8 @@ const LevelPicker = ({children}: LevelPickerProps) => {
   };
 
   const handleSave = () => {
-    if (levelTagAddition) {
-      addLevelTag({...levelTagAddition, level: level});
+    if (levelTagAddition && activeCategoryId) {
+      addLevelTag(activeCategoryId, {...levelTagAddition, level: level});
     }
     setLevel(1);
   };

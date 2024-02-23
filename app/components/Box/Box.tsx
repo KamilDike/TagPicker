@@ -4,13 +4,14 @@ import {Text, View} from 'react-native';
 import {useTags} from '../../context/TagsContext.tsx';
 
 const Box = () => {
-  const {tags} = useTags();
+  const {tags, activeCategoryId} = useTags();
 
   return (
     <View style={BoxStyles.container}>
-      {tags.map(tag => (
-        <Text key={tag.id}>{tag.name}</Text>
-      ))}
+      {activeCategoryId &&
+        tags[activeCategoryId]?.map(tag => (
+          <Text key={tag.id}>{tag.name}</Text>
+        ))}
     </View>
   );
 };

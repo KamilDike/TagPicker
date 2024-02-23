@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Alert, Text, TouchableOpacity, View} from 'react-native';
 import {TabStyles} from './Tab.styles.ts';
 import {API_getTags} from '../../api/api.ts';
 import {Category} from '../../interfaces/Category.ts';
@@ -9,28 +9,48 @@ import {useTags} from '../../context/TagsContext.tsx';
 
 interface TabProps {
   category: Category;
-  isActive?: boolean;
-  setActive: () => void;
+  previousCategoryId?: string;
 }
 
-const Tab = ({category, isActive, setActive}: TabProps) => {
-  const {tags: myTags, addTag, removeTag} = useTags();
+const Tab = ({category, previousCategoryId}: TabProps) => {
+  const {
+    tags: myTags,
+    addTag,
+    removeTag,
+    setActiveCategoryId,
+    activeCategoryId,
+  } = useTags();
   const [tags, setTags] = useState<Array<Tag>>([]);
+  const isActive = activeCategoryId === category.id;
 
   useEffect(() => {
     API_getTags(category.id).then(setTags);
   }, [category.id]);
 
+  const handleTabPress = () => {
+    if (previousCategoryId && !myTags[previousCategoryId]?.length) {
+      Alert.alert('Wypełnij poprzednie');
+    } else {
+      setActiveCategoryId(category.id);
+    }
+  };
+
   return isActive ? (
     <View style={TabStyles.container}>
       {tags.map(tag => {
-        const isActive = myTags.some(myTag => myTag.id === tag.id);
+        const isActivePill = myTags[category.id]?.some(
+          myTag => myTag.id === tag.id,
+        );
         return (
           <Pill
             key={tag.id}
             tag={tag}
-            isActive={isActive}
-            onPress={() => (isActive ? removeTag(tag.id) : addTag(tag))}
+            isActive={isActivePill}
+            onPress={() =>
+              isActivePill
+                ? removeTag(category.id, tag.id)
+                : addTag(category.id, tag)
+            }
           />
         );
       })}
@@ -38,7 +58,7 @@ const Tab = ({category, isActive, setActive}: TabProps) => {
   ) : (
     <TouchableOpacity
       style={[TabStyles.container, TabStyles.inActive]}
-      onPress={setActive}>
+      onPress={handleTabPress}>
       <Text>{category.name}</Text>
     </TouchableOpacity>
   );

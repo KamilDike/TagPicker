@@ -7,3 +7,8 @@ export interface Tag {
 export interface TagWithLevel extends Tag {
   level: number;
 }
+
+export interface TagPayload {
+  id: string;
+  level: number;
+}
