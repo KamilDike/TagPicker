@@ -9,18 +9,8 @@ export const ConfirmationOverlayStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   box: {
-    backgroundColor: Colors.green,
-    borderWidth: 1,
-    width: 200,
-    height: 300,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    gap: 20,
-  },
-  bottomBox: {
-    marginTop: Values.defaultMargin,
-    width: '100%',
     height: 100,
+    width: 200,
     flexDirection: 'row',
   },
   button: {

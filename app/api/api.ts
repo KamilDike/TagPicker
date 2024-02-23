@@ -12,5 +12,6 @@ export const API_getTags = (categoryId: string) => {
 };
 
 export const API_saveTags = (payload: Array<TagPayload>) => {
+  console.log('saved tags: ', {payload});
   return Promise.resolve(payload);
 };

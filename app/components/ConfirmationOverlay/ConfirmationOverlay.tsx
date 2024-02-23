@@ -8,27 +8,44 @@ interface ConfirmationOverlayProps {
 }
 
 const ConfirmationOverlay = ({children}: ConfirmationOverlayProps) => {
-  const {activeCategoryId} = useTags();
+  const {
+    confirmationCategoryId,
+    setConfirmationCategoryId,
+    saveTags,
+    setActiveCategoryId,
+  } = useTags();
+
+  const handleCategoryChange = () => {
+    if (!confirmationCategoryId) {
+      return;
+    }
+
+    setActiveCategoryId(confirmationCategoryId);
+    setConfirmationCategoryId(undefined);
+  };
 
   return (
     <>
-      <Modal visible={!!false} transparent>
+      <Modal visible={!!confirmationCategoryId} transparent>
         <View style={ConfirmationOverlayStyles.container}>
           <View style={ConfirmationOverlayStyles.box}>
-            <View style={ConfirmationOverlayStyles.bottomBox}>
-              <TouchableOpacity
-                style={[
-                  ConfirmationOverlayStyles.button,
-                  ConfirmationOverlayStyles.buttonCancel,
-                ]}
-              />
-              <TouchableOpacity
-                style={[
-                  ConfirmationOverlayStyles.button,
-                  ConfirmationOverlayStyles.buttonSave,
-                ]}
-              />
-            </View>
+            <TouchableOpacity
+              style={[
+                ConfirmationOverlayStyles.button,
+                ConfirmationOverlayStyles.buttonCancel,
+              ]}
+              onPress={handleCategoryChange}
+            />
+            <TouchableOpacity
+              style={[
+                ConfirmationOverlayStyles.button,
+                ConfirmationOverlayStyles.buttonSave,
+              ]}
+              onPress={() => {
+                saveTags();
+                handleCategoryChange();
+              }}
+            />
           </View>
         </View>
       </Modal>

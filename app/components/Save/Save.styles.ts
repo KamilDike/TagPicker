@@ -8,5 +8,7 @@ export const SaveStyles = StyleSheet.create({
     height: 50,
     position: 'absolute',
     bottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

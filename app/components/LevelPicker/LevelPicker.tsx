@@ -24,7 +24,7 @@ const LevelPicker = ({children}: LevelPickerProps) => {
 
   const handleSave = () => {
     if (levelTagAddition && activeCategoryId) {
-      addLevelTag(activeCategoryId, {...levelTagAddition, level: level});
+      addLevelTag({...levelTagAddition, level: level});
     }
     setLevel(1);
   };

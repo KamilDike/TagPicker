@@ -19,10 +19,13 @@ const Tab = ({category, previousCategoryId}: TabProps) => {
     removeTag,
     setActiveCategoryId,
     activeCategoryId,
+    synchronizedCategories,
+    setConfirmationCategoryId,
   } = useTags();
   const [tags, setTags] = useState<Array<Tag>>([]);
   const isActive = activeCategoryId === category.id;
 
+  //GoTo solution would be to implement optimized data fetching by solution such as ReactQuery
   useEffect(() => {
     API_getTags(category.id).then(setTags);
   }, [category.id]);
@@ -30,6 +33,11 @@ const Tab = ({category, previousCategoryId}: TabProps) => {
   const handleTabPress = () => {
     if (previousCategoryId && !myTags[previousCategoryId]?.length) {
       Alert.alert('Wypełnij poprzednie');
+    } else if (
+      activeCategoryId &&
+      !synchronizedCategories.includes(activeCategoryId)
+    ) {
+      setConfirmationCategoryId(category.id);
     } else {
       setActiveCategoryId(category.id);
     }
@@ -46,11 +54,7 @@ const Tab = ({category, previousCategoryId}: TabProps) => {
             key={tag.id}
             tag={tag}
             isActive={isActivePill}
-            onPress={() =>
-              isActivePill
-                ? removeTag(category.id, tag.id)
-                : addTag(category.id, tag)
-            }
+            onPress={() => (isActivePill ? removeTag(tag.id) : addTag(tag))}
           />
         );
       })}

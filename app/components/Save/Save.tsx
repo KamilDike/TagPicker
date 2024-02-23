@@ -1,23 +1,23 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 import {useTags} from '../../context/TagsContext.tsx';
-import {API_saveTags} from '../../api/api.ts';
 import {SaveStyles} from './Save.styles.ts';
 
 const Save = () => {
-  const {tags, activeCategoryId} = useTags();
+  const {activeCategoryId, tags, synchronizedCategories, saveTags} = useTags();
 
-  const myTagsPayload = activeCategoryId
-    ? tags[activeCategoryId].map(myTag => ({id: myTag.id, level: myTag.level}))
-    : [];
+  if (
+    !activeCategoryId ||
+    !tags[activeCategoryId]?.length ||
+    synchronizedCategories.includes(activeCategoryId)
+  ) {
+    return null;
+  }
 
   return (
-    <TouchableOpacity
-      onPress={() => {
-        API_saveTags(myTagsPayload);
-      }}
-      style={SaveStyles.container}
-    />
+    <TouchableOpacity onPress={saveTags} style={SaveStyles.container}>
+      <Text>Zapisz</Text>
+    </TouchableOpacity>
   );
 };
 
